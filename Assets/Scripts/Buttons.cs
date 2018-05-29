@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Buttons : MonoBehaviour {
-    public GameObject Menu, Game;
+    public GameObject Menu, Game, TimerGame;
     public bool DebugLog;
-
-    int Score;
-
 	// Use this for initialization
 	void Start ()
     {
@@ -34,7 +31,7 @@ public class Buttons : MonoBehaviour {
     public void Play()
     {
         Menu.SetActive(false);
-        Time.timeScale = 1f;
-        Game.SetActive(true);
+        //Time.timeScale = 1f;
+        TimerGame.SetActive(true);
     }
 }
