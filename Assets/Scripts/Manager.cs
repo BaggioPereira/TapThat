@@ -45,8 +45,9 @@ public class Manager : MonoBehaviour {
         {
             Time.timeScale = 1f;
             TimeLeft -= Time.deltaTime;
-            TimeLeft = (float)Math.Round(TimeLeft, 2);
-            Timer.GetComponent<TextMeshProUGUI>().text = TimeLeft.ToString();
+            float Display = Mathf.Round(TimeLeft); 
+            //TimeLeft = (float)Math.Round(TimeLeft, 2);
+            Timer.GetComponent<TextMeshProUGUI>().text = Display.ToString();
         }
 
         if(TimeLeft <= 0.0f)
