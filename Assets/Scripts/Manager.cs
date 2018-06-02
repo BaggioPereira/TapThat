@@ -12,7 +12,7 @@ public class Manager : MonoBehaviour {
     public GameObject Timer;
     int Score, TimerScore;
     float TimeLeft;
-
+    public MultiArray[] Games;
     public GameObject Menu, Game, TimerGame, TimeGamePanel, ScorePanel;
     public bool DebugLog;
 
@@ -26,7 +26,7 @@ public class Manager : MonoBehaviour {
         TimeLeft = 10.0f;
         Score = TimerScore = 0;
         ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score : " + Score.ToString();
-        InvokeRepeating("NewPoint", 0f, 0.1f);
+        InvokeRepeating("NewPoint", 0f, 0.001f);
 	}
 
     void Update()
@@ -55,6 +55,7 @@ public class Manager : MonoBehaviour {
             Time.timeScale = 0f;
             TimeGamePanel.SetActive(false);
             ScorePanel.SetActive(true);
+            ScorePanel.GetComponentInChildren<TextMeshProUGUI>().text = "Score: " + TimerScore;
         }
     }
 
