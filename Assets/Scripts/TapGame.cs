@@ -45,7 +45,6 @@ public class TapGame : MonoBehaviour {
                         GameOverObject.GetComponent<RectTransform>().localPosition = pos;
                         GameOverObject.SetActive(true);
                         TimeLeft = 1f;
-                        Debug.Log(TimeLeft);
                         BadCounter();
                     }
                 }
@@ -90,5 +89,11 @@ public class TapGame : MonoBehaviour {
         GameDisplay.SetActive(false);
         GameOverDisplay.SetActive(true);
         GameOverScore.GetComponent<TextMeshProUGUI>().text = "Score: " + Score;
+    }
+
+    public void Restart()
+    {
+        Destroy(gameObject);
+        GameObject.Find("Game Manager").GetComponent<Manager>().Play();
     }
 }

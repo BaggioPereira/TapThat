@@ -53,4 +53,10 @@ public class TimerGame : MonoBehaviour {
         Score++;
         //ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score : " + Score.ToString();
     }
+
+    public void Restart()
+    {
+        Destroy(gameObject);
+        GameObject.Find("Game Manager").GetComponent<Manager>().Play();
+    }
 }
