@@ -7,13 +7,14 @@ using System;
 
 public class Manager : MonoBehaviour {
 
-    public GameObject MainCanvas;
+    public GameObject MainCanvas, GameSelect;
     public GameObject Winning;
     public GameObject ScoreObject;
     int Score, TimerScore;
     float TimeLeft;
     public GameObject Menu, Game, TimerGame;
     public bool DebugLog;
+    public bool[] GameSelected;
 
     // Use this for initialization
     void Start ()
@@ -22,6 +23,7 @@ public class Manager : MonoBehaviour {
         {
             Time.timeScale = 0f;
         }
+        GameSelected[0] = true;
         TimeLeft = 10.0f;
         Score = TimerScore = 0;
         ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score : " + Score.ToString();
@@ -54,6 +56,40 @@ public class Manager : MonoBehaviour {
                 Winning.SetActive(true);
             }
         }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void Selection()
+    {
+        Menu.SetActive(false);
+        GameSelect.SetActive(true);
+    }
+    public void Back()
+    {
+        Menu.SetActive(true);
+        GameSelect.SetActive(false);
+    }
+
+    public void Tapfinity()
+    {
+        for(int i = 0; i < GameSelected.Length; i++)
+        {
+            GameSelected[i] = false;
+        }
+        GameSelected[0] = true;
+    }
+
+    public void Taptime()
+    {
+        for (int i = 0; i < GameSelected.Length; i++)
+        {
+            GameSelected[i] = false;
+        }
+        GameSelected[1] = true;
     }
 
     public void Play()
