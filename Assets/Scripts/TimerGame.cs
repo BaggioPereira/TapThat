@@ -59,4 +59,10 @@ public class TimerGame : MonoBehaviour {
         Destroy(gameObject);
         GameObject.Find("Game Manager").GetComponent<Manager>().Play();
     }
+
+    public void Quit()
+    {
+        Destroy(gameObject);
+        GameObject.Find("Game Manager").GetComponent<Manager>().Menu.SetActive(true);
+    }
 }
