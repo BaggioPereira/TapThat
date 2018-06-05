@@ -8,13 +8,10 @@ using System;
 public class Manager : MonoBehaviour {
 
     public GameObject MainCanvas, GameSelect;
-    public GameObject Winning;
-    public GameObject ScoreObject;
-    int Score, TimerScore;
-    float TimeLeft;
-    public GameObject Menu, Game, TimerGame;
+    public GameObject Menu;
     public bool DebugLog;
     public bool[] GameSelected;
+    public GameObject[] Games;
 
     // Use this for initialization
     void Start ()
@@ -23,11 +20,17 @@ public class Manager : MonoBehaviour {
         {
             Time.timeScale = 0f;
         }
-        GameSelected[0] = true;
-        TimeLeft = 10.0f;
-        Score = TimerScore = 0;
-        ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score : " + Score.ToString();
-        //nvokeRepeating("NewPoint", 0f, 0.001f);
+
+        if (!PlayerPrefs.HasKey("GameID"))
+        {
+            PlayerPrefs.SetInt("GameID", 0);
+            GameSelected[0] = true;
+        }
+
+        else if(PlayerPrefs.HasKey("GameID"))
+        {
+            GameSelected[PlayerPrefs.GetInt("GameID")] = true;
+        }
 	}
 
     void Update()
@@ -40,21 +43,6 @@ public class Manager : MonoBehaviour {
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
-        }
-
-        NewPoint();
-    }
-
-    void NewPoint()
-    {
-        if (Game.active == true)
-        {
-            if (Winning.active == false)
-            {
-                Vector2 pos = new Vector2(UnityEngine.Random.Range(-93, 94), UnityEngine.Random.Range(-191, 141));
-                Winning.GetComponent<RectTransform>().localPosition = pos;
-                Winning.SetActive(true);
-            }
         }
     }
 
@@ -81,6 +69,7 @@ public class Manager : MonoBehaviour {
             GameSelected[i] = false;
         }
         GameSelected[0] = true;
+        PlayerPrefs.SetInt("GameID", 0);
     }
 
     public void Taptime()
@@ -90,13 +79,16 @@ public class Manager : MonoBehaviour {
             GameSelected[i] = false;
         }
         GameSelected[1] = true;
+        PlayerPrefs.SetInt("GameID", 1);
     }
 
     public void Play()
     {
         Menu.SetActive(false);
+        if (PlayerPrefs.HasKey("GameID"))
+            Instantiate(Games[PlayerPrefs.GetInt("GameID")], Vector3.zero, Quaternion.identity).transform.parent = MainCanvas.transform;
         //Time.timeScale = 1f;
         //TimerGame.SetActive(true);
-        Instantiate(TimerGame, Vector3.zero, Quaternion.identity).transform.parent = MainCanvas.transform;
+        //Instantiate(TimerGame, Vector3.zero, Quaternion.identity).transform.parent = MainCanvas.transform;
     }
 }
