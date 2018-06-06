@@ -14,10 +14,12 @@ public class TimerGame : MonoBehaviour {
     public GameObject WinningObject, ScoreObject, GameDisplay, ScoreDisplay, Timer;
     float TimeLeft;
     int Score = 0;
+    bool adShown;
 	// Use this for initialization
 	void Start ()
     {
         Advertisement.Initialize(gameID);
+        adShown = false;
         Time.timeScale = 0;
         TimeLeft = 10.0f;
     }
@@ -42,7 +44,11 @@ public class TimerGame : MonoBehaviour {
             GameDisplay.SetActive(false);
             ScoreDisplay.SetActive(true);
             ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score: " + Score;
-            Advertisement.Show();
+            if (!adShown)
+            {
+                Advertisement.Show();
+                adShown = true;
+            }
         }
     }
     void NewPoint()
