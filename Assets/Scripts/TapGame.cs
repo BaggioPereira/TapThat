@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Advertisements;
 
 public class TapGame : MonoBehaviour {
+    #if UNITY_IOS
+    private string gameID = "2593061";
+    #elif UNITY_ANDROID
+    private string gameID = "2593063";
+    #endif
+
     public GameObject GameDisplay, GameOverDisplay, WinningObject, GameOverObject, ScoreObject, GameOverScore;
     int Score = 0;
     float TimeLeft = 1f;
     // Use this for initialization
     void Start ()
     {
+        Advertisement.Initialize(gameID);
         Time.timeScale = 0;
         ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score: " + Score;
     }
@@ -89,6 +97,7 @@ public class TapGame : MonoBehaviour {
         GameDisplay.SetActive(false);
         GameOverDisplay.SetActive(true);
         GameOverScore.GetComponent<TextMeshProUGUI>().text = "Score: " + Score;
+        Advertisement.Show();
     }
 
     public void Restart()

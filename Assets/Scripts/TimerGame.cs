@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Advertisements;
 
 public class TimerGame : MonoBehaviour {
+    #if UNITY_IOS
+    private string gameID = "2593061";
+    #elif UNITY_ANDROID
+    private string gameID = "2593063";
+    #endif
 
     public GameObject WinningObject, ScoreObject, GameDisplay, ScoreDisplay, Timer;
     float TimeLeft;
@@ -11,6 +17,7 @@ public class TimerGame : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        Advertisement.Initialize(gameID);
         Time.timeScale = 0;
         TimeLeft = 10.0f;
     }
@@ -35,6 +42,7 @@ public class TimerGame : MonoBehaviour {
             GameDisplay.SetActive(false);
             ScoreDisplay.SetActive(true);
             ScoreObject.GetComponent<TextMeshProUGUI>().text = "Score: " + Score;
+            Advertisement.Show();
         }
     }
     void NewPoint()
